@@ -14,4 +14,11 @@
 
 <style>
 	/*每个页面公共css */
+	.dflex {
+		display: flex;
+	}
+	.dflex-column {
+		display: flex;
+		flex-direction: column;
+	}
 </style>
