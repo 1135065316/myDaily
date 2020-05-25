@@ -34,12 +34,18 @@
 		</view>
 		<!-- 提交按钮 -->
 		<button class="handleBtn" @tap="handleSubmit">点击提交</button>
-		<button @tap="getData">获取数据</button>
-		<button @tap="clear">清除</button>
+		<!-- <button @tap="getData">获取数据</button> -->
+		<!-- <button @tap="clear">清除</button> -->
+		<!-- 弹窗提示 -->
+		<uni-popup ref="popup" type="dialog">
+		    <uni-popup-dialog type="input" title="是否继续" message="成功消息" :duration="2000" @confirm="confirm"></uni-popup-dialog>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import uniPopup from'../../components/uni-popup/uni-popup.vue'
+	import uniPopupDialog from'../../components/uni-popup/uni-popup-dialog.vue'
 	export default {
 		data() {
 			return {
@@ -51,10 +57,22 @@
 				mood: true
 			}
 		},
+		components: {
+			uniPopup,
+			uniPopupDialog
+		},
 		onLoad() {
 
 		},
 		methods: {
+			// 点击确认后触发
+			confirm(done){
+				// 保存提交的数据
+				this.saveData()
+				// TODO 做一些其他的事情，手动执行 done 才会关闭对话框
+				// ...
+				done()
+			},
 			getCurrentDate() {
 				let currentTime = new Date()
 				return currentTime.getMonth() + '月' + currentTime.getDate() + '日'
@@ -91,6 +109,10 @@
 			},
 			// 处理按钮提交
 			handleSubmit() {
+				// 触发弹出框
+				this.$refs.popup.open()
+			},
+			saveData() {
 				let currentTime = new Date()
 				// 准备需要存储的数据
 				const data = this.prepareData(currentTime)
@@ -127,6 +149,10 @@
 							},
 							fail: function () {
 								console.log('存储失败');
+								uni.showToast({
+									title: '提交失败',
+									icon: 'none'
+								})
 							}
 						})
 					},
@@ -142,12 +168,14 @@
 							},
 							fail: function () {
 								console.log('存储失败');
+								uni.showToast({
+									title: '提交失败',
+									icon: 'none'
+								})
 							}
 						})
 					}
 				})
-				
-				
 			},
 			// 返回周几	因为0是周日,所以需要进行处理
 			weekDay(weekDay) {
