@@ -13,6 +13,10 @@
             "path" : "pages/mySport/mySport",
             "style" : {}
         }
+        ,{
+            "path" : "pages/test/test",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black"
