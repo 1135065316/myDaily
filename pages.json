@@ -9,6 +9,10 @@
             "path" : "pages/myDaily/myDaily",
             "style" : {}
         }
+        ,{
+            "path" : "pages/mySport/mySport",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black"
