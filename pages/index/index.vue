@@ -26,14 +26,60 @@
 			return {
 				recordTip: '今日未记录',
 				isRecord: false, // 今日是否已经记录
-				myChoose: null, // 我的选择 true|false
+				myChoose: true, // 我的选择 true|false
+			}
+		},
+		onLoad() {
+			this.selectRecord()
+		},
+		watch: {
+			isRecord(isRecord) {
+				if(isRecord) {
+					// 已记录
+					this.recordTip = '今日已记录'
+				}else {
+					// 未记录
+					this.recordTip = '今日未记录'
+				}
 			}
 		},
 		methods: {
+			// 查询记录
+			selectRecord() {
+				// 提交日期
+				let recordTime = ''
+				let time = new Date()
+				let month = time.getMonth()+1
+				// 拼接年月日
+				recordTime = time.getFullYear() + '-' + month + '-' + time.getDate()
+				let data = {
+					record_time: recordTime
+				}
+				service.selectRecord(data,(res)=>{
+					if(res.data.length>0) {
+						this.isRecord = true
+					}
+				})
+			},
 			// 处理提交
 			handleSubmit() {
-				service.test((res)=>{
-					console.log(res);
+				// 提交日期
+				let recordTime = ''
+				let time = new Date()
+				let month = time.getMonth()+1
+				// 拼接年月日
+				recordTime = time.getFullYear() + '-' + month + '-' + time.getDate()
+				// 打包数据
+				let data = {
+					record_time: recordTime,
+					is_survival: this.myChoose?1:0
+				}
+				// 保存选择
+				service.saveRecord(data,(res)=>{
+					if(res.data == '新记录插入成功') {
+						// 更改标示
+						this.isRecord = true
+					}
 				})
 			},
 			// 处理记录改变

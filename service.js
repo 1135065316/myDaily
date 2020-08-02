@@ -4,11 +4,19 @@ const STATE_KEY = 'STATE_KEY';
 const web_url = "https://www.shitouji.ltd/index.php?datatype=json&";
 
 
-// 发出订单
-const test = function(callback) {
+// 保存每日记录
+const saveRecord = function(data,callback) {
 	// let url = web_url + "ctrl=sjapp&action=svorder&@random@&datatype=json";
-	let url = "http://www.sword-z.xyz/mydaily?datatype=json&";
-	requestGet(url,'',(res)=>{
+	let url = "http://www.sword-z.xyz/mydaily/saveRecord?datatype=json&";
+	requestGet(url,data,(res)=>{
+		callback(res);
+	})
+}
+// 查询指定的记录
+const selectRecord = function(data,callback) {
+	// let url = web_url + "ctrl=sjapp&action=svorder&@random@&datatype=json";
+	let url = "http://www.sword-z.xyz/mydaily/selectrecord?datatype=json&";
+	requestGet(url,data,(res)=>{
 		callback(res);
 	})
 }
@@ -91,5 +99,6 @@ const requestPost = function(url, data, callback) {
 
 
 export default {
-	test
+	saveRecord,
+	selectRecord
 }
