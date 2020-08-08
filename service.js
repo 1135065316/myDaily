@@ -1,13 +1,12 @@
-// 管理账号信息
-const USERS_KEY = 'USERS_KEY';
-const STATE_KEY = 'STATE_KEY';
-const web_url = "https://www.shitouji.ltd/index.php?datatype=json&";
+// 远程
+const web_url = "http://www.sword-z.xyz/mydaily";
+const web_url1 = "localhost/mydaily";
 
 
 // 保存每日记录
 const saveRecord = function(data,callback) {
 	// let url = web_url + "ctrl=sjapp&action=svorder&@random@&datatype=json";
-	let url = "http://www.sword-z.xyz/mydaily/saveRecord?datatype=json&";
+	let url = web_url+"/saveRecord?datatype=json&";
 	requestGet(url,data,(res)=>{
 		callback(res);
 	})
@@ -15,7 +14,7 @@ const saveRecord = function(data,callback) {
 // 查询指定的记录
 const selectRecord = function(data,callback) {
 	// let url = web_url + "ctrl=sjapp&action=svorder&@random@&datatype=json";
-	let url = "http://www.sword-z.xyz/mydaily/selectrecord?datatype=json&";
+	let url = web_url+"/selectrecord?datatype=json&";
 	requestGet(url,data,(res)=>{
 		callback(res);
 	})
